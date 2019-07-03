@@ -48,6 +48,11 @@ class Entries_by_author
 
     private function query_by_id($user_id)
     {
+        $data_teaser_field = 'field_id_' . $this->required_fields['teaser'];
+        $data_byline_field = 'field_id_' . $this->required_fields['byline'];
+        $screen_name_query = ee()->db->select('screen_name')
+            ->from('members')
+            ->where('member_id', $this->user);
         // SET @data_teaser_field = CONCAT('field_id_', (SELECT field_id FROM exp_channel_fields WHERE field_name = 'Teaser'));
         // SET @data_byline_field = CONCAT('field_id_', (SELECT field_id FROM exp_channel_fields WHERE field_name = 'Byline'));
         // SET @screen_name_query = CONCAT('(SELECT members.screen_name FROM exp_members members WHERE members.member_id = ', @user_id, ')');
