@@ -10,10 +10,12 @@ class Entries_by_author
     public $return_data;
 
     private $required_fields = array(
-        'Byline' => NULL,
-        'Teaser' => NULL
+        'byline' => NULL,
+        'teaser' => NULL
     );
-    
+ 
+    private $db_prefix = 'exp_';
+
     private $user;
 
     public function __construct()
@@ -25,16 +27,13 @@ class Entries_by_author
 
     private function load_required_fields()
     {
-        $field_names = array('Byline', 'Teaser');
-        $sql = "SELECT field_id, field_name FROM channel_fields WHERE field_id IN ?";
-        $results = ee()->db->query($sql, $field_names);
-        $fields = result_array($results);
+        // Watch quote assignment on implode + query.
+        $field_list = implode("', '", array_keys($this->required_fields));
+        $sql = "SELECT field_id, field_name FROM {$this->db_prefix}channel_fields WHERE field_name IN ('{$field_list}');";
+        
+        $results = ee()->db->query($sql)->result_array();
 
-        foreach ($fields as $field)
-        {
-            $name = $field['field_name'];
-            $this->required_field[$name] = $field['field_id'];
-        }
+        $foo;
     }
 
     private function query_by_id($user_id)
