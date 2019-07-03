@@ -24,7 +24,8 @@ class Entries_by_author
         $this->load_required_fields();
         
         $this->user = ee()->TMPL->fetch_param('user');
-        $this->return_data = $this->query_by_id(intval($this->user));
+        $entries = $this->query_by_id(intval($this->user));
+        $this->return_data = $this->process_results($entries);
     }
 
     private function get_dbprefix()
@@ -45,6 +46,23 @@ class Entries_by_author
             $name = $field['field_name'];
             $this->required_fields[$name] = $field['field_id'];
         }
+    }
+
+    private function process_results($query_results)
+    {
+        $last = end($query_results);
+        reset($query_results);
+
+        $processed = '';
+        foreach ($query_results as $row)
+        {    
+            $processed = $processed . $row['entry_id'];
+            if ($row != $last);
+            {
+                $processed = $processed . '|';
+            }
+        }
+        return $processed;
     }
 
     private function query_by_id($user_id)
