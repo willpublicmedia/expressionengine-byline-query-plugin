@@ -22,8 +22,9 @@ class Entries_by_author
     {
         $this->dbprefix = $this->get_dbprefix();
         $this->load_required_fields();
-        // $this->user = ee()->TMPL->fetch_param('user');
-        // $this->return_data = $this->query_by_id($this->user);
+        
+        $this->user = ee()->TMPL->fetch_param('user');
+        $this->return_data = $this->query_by_id(intval($this->user));
     }
 
     private function get_dbprefix()
@@ -48,6 +49,11 @@ class Entries_by_author
 
     private function query_by_id($user_id)
     {
+        if (!is_int($user_id))
+        {
+            throw \Exception('User ID must be a number.');
+        }
+
         $data_teaser_field = 'field_id_' . $this->required_fields['teaser'];
         $data_byline_field = 'field_id_' . $this->required_fields['byline'];
         $screen_name_query = ee()->db->select('screen_name')
