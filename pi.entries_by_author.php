@@ -20,9 +20,15 @@ class Entries_by_author
 
     public function __construct()
     {
+        $this->dbprefix = $this->get_dbprefix();
         $this->load_required_fields();
         // $this->user = ee()->TMPL->fetch_param('user');
         // $this->return_data = $this->query_by_id($this->user);
+    }
+
+    private function get_dbprefix()
+    {
+        return ee()->db->dbprefix('channel_titles');
     }
 
     private function load_required_fields()
