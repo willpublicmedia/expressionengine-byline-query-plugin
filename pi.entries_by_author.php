@@ -60,7 +60,7 @@ class Entries_by_author
         $screen_name_query = "SELECT screen_name from {$this->db_prefix}members WHERE member_id = ?";
 
         $byline_query = 
-            "SELECT titles.entry_id, titles.title, titles.entry_date, titles.url_title, data.{$data_teaser_field}, data.{$data_byline_field}
+        "SELECT titles.entry_id, titles.title, titles.entry_date, titles.url_title, data.{$data_teaser_field}, data.{$data_byline_field}
                 FROM {$this->db_prefix}channel_data data
                 INNER JOIN {$this->db_prefix}channel_titles titles ON data.entry_id = titles.entry_id
                 INNER JOIN {$this->db_prefix}members members ON
@@ -72,6 +72,9 @@ class Entries_by_author
         
         $results = ee()->db->query($byline_query, $user_id)->result_array();
 
+        // filter closed stories
+        // filter future-published stories
+        // process results
         return $results;
     }
 }
