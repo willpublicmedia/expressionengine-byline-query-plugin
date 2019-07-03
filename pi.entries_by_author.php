@@ -51,7 +51,8 @@ class Entries_by_author
     {
         if (!is_int($user_id))
         {
-            throw \Exception('User ID must be a number.');
+            ee()->TMPL->log_item('Entries by Author: User ID must be a number to query by ID.');
+            return ee()->TMPL->no_results();
         }
 
         $data_teaser_field = 'field_id_' . $this->required_fields['teaser'];
