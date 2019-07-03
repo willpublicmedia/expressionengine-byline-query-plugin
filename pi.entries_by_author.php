@@ -68,11 +68,11 @@ class Entries_by_author
                         ({$screen_name_query}),
                         {$data_byline_field}
                     ) > 0
-                    GROUP BY entry_id";
+                WHERE titles.status = 'open'
+                GROUP BY entry_id";
         
         $results = ee()->db->query($byline_query, $user_id)->result_array();
 
-        // filter closed stories
         // filter future-published stories
         // process results
         return $results;
