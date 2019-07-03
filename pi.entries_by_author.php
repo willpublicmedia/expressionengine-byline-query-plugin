@@ -33,7 +33,11 @@ class Entries_by_author
         
         $results = ee()->db->query($sql)->result_array();
 
-        $foo;
+        foreach ($results as $field)
+        {
+            $name = $field['field_name'];
+            $this->required_fields[$name] = $field['field_id'];
+        }
     }
 
     private function query_by_id($user_id)
