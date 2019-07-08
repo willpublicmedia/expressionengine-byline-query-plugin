@@ -24,12 +24,14 @@ class Entries_by_author
         $this->load_required_fields();
         
         $this->user = ee()->TMPL->fetch_param('user');
+        $tagdata = ee()->TMPL->tagdata;
+        
         $results = $this->query_by_id(intval($this->user));
         $bylines = $this->process_results($results);
-        $this->return_data = ee()->TMPL->parse_variables(
-            ee()->TMPL->tagdata,
-            array('bylines' => $bylines)
-        );
+        
+        $data = array('bylines' => $bylines);
+        $variables = ee()->TMPL->parse_variables($tagdata, array($data));
+        $this->return_data = $variables;
     }
 
     private function get_dbprefix()
