@@ -8,7 +8,7 @@ if (!defined('BASEPATH')) {
 
 class Constants 
 {
-    const NAME = 'Entries By Author';
+    const NAME = 'Query Bylines';
 
     const AUTHOR = 'Illinois Public Media';
 
@@ -16,7 +16,7 @@ class Constants
 
     const DESCRIPTION = 'Retrieves channel entries using the Byline field.';
 
-    const DOCS_URL = 'https://gitlab.engr.illinois.edu/willpublicmedia/';
+    const DOCS_URL = 'https://gitlab.engr.illinois.edu/willpublicmedia/expressionengine-query-bylines';
     
     const VERSION = '0.0.0';
 }

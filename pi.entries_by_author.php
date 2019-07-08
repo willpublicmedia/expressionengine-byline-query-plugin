@@ -3,9 +3,9 @@
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 require_once (__DIR__ . '/constants.php');
-use IllinoisPublicMedia\EntriesByAuthor\Constants;
+use IllinoisPublicMedia\QueryBylines\Constants;
 
-class Entries_by_author 
+class Query_bylines 
 {
     public $return_data;
 
