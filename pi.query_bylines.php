@@ -30,11 +30,25 @@ class Query_bylines
         $tagdata = ee()->TMPL->tagdata;
         
         $results = $this->query_by_id(intval($this->user));
+        if ($this->fallback && empty($results))
+        {
+            $results = $this->fallback(intval($this->user));
+        }
+
         $bylines = $this->process_results($results);
         
         $data = array('bylines' => $bylines);
         $variables = ee()->TMPL->parse_variables($tagdata, array($data));
         $this->return_data = $variables;
+    }
+
+    private function fallback($user_id)
+    {
+        if (!is_int($user_id))
+        {
+            ee()->TMPL->log_item('Query Byline: User ID must be a number to query by ID.');
+            return ee()->TMPL->no_results();
+        }
     }
 
     private function get_dbprefix()
@@ -78,7 +92,7 @@ class Query_bylines
     {
         if (!is_int($user_id))
         {
-            ee()->TMPL->log_item('Entries by Author: User ID must be a number to query by ID.');
+            ee()->TMPL->log_item('Query Byline: User ID must be a number to query by ID.');
             return ee()->TMPL->no_results();
         }
 
