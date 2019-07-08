@@ -49,6 +49,14 @@ class Query_bylines
             ee()->TMPL->log_item('Query Byline: User ID must be a number to query by ID.');
             return ee()->TMPL->no_results();
         }
+
+        $results = ee()->db->select('entry_id')
+            ->from('channel_titles')
+            ->where('author_id', $user_id)
+            ->get()
+            ->result_array();
+        
+        return $results;
     }
 
     private function get_dbprefix()
