@@ -1,6 +1,6 @@
 <?php 
 
-namespace IllinoisPublicMedia\EntriesByAuthor;
+namespace IllinoisPublicMedia\QueryBylines;
 
 if (!defined('BASEPATH')) { 
     exit ('No direct script access allowed.');
