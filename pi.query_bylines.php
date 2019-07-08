@@ -16,6 +16,8 @@ class Query_bylines
  
     private $db_prefix = 'exp_';
 
+    private $fallback = FALSE;
+
     private $user;
 
     public function __construct()
@@ -24,6 +26,7 @@ class Query_bylines
         $this->load_required_fields();
         
         $this->user = ee()->TMPL->fetch_param('user');
+        $this->fallback = strtolower(ee()->TMPL->fetch_param('fallback')) === 'true' ? TRUE : FALSE;
         $tagdata = ee()->TMPL->tagdata;
         
         $results = $this->query_by_id(intval($this->user));
