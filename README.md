@@ -10,9 +10,23 @@ Call the plugin with the following syntax:
 
 ```mustache
 {exp:query_bylines user="{id}" parse="inward"}
+    {if bylines != ""}
         {exp:channel:entries entry_id="{bylines}"}
-    {/exp:query_bylines}
+    {/if}
+{/exp:query_bylines}
 ```
+
+If no bylines are found, you can fall back to a traditional entry-ownership model using the fallback parameter:
+
+```mustache
+{exp:query_bylines user="{id}" fallback="true" parse="inward"}
+    {if bylines != ""}
+        {exp:channel:entries entry_id="{bylines}"}
+    {/if}
+{/exp:query_bylines}
+```
+
+Note that you must check for results before passing bylines to the channel module.
 
 ## Dependencies
 
