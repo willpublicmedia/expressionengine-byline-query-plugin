@@ -72,13 +72,19 @@ class Query_bylines
         $field_list = implode("', '", array_keys($this->required_fields));
         $sql = "SELECT field_id, field_name FROM {$this->db_prefix}channel_fields WHERE field_name IN ('{$field_list}');";
         
-        $results = ee()->db->query($sql)->result_array();
+        $query = ee()->db->query($sql);
+        $results = $query->result_array();
+
+        $query->free_result();
+        unset($query);
 
         foreach ($results as $field)
         {
             $name = $field['field_name'];
             $this->required_fields[$name] = $field['field_id'];
         }
+
+
     }
 
     private function process_results($query_results)
@@ -119,7 +125,11 @@ class Query_bylines
                 ) > 0
             GROUP BY entry_id";
         
-        $results = ee()->db->query($byline_query, $user_id)->result_array();
+        $query = ee()->db->query($byline_query, $user_id);
+        $results = $query->result_array();
+
+        $query->free_result();
+        unset($query);
 
         return $results;
     }
