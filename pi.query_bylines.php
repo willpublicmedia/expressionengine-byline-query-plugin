@@ -34,8 +34,10 @@ class Query_bylines
         {
             $results = $this->fallback(intval($this->user));
         }
-
-        $bylines = $this->process_results($results);
+        
+        $bylines = empty($results) ?
+            ee()->TMPL->no_results :
+            $this->process_results($results);
         
         $data = array('bylines' => $bylines);
         $variables = ee()->TMPL->parse_variables($tagdata, array($data));
